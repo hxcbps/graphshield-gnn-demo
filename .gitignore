@@ -1,0 +1,9 @@
+# artefactos grandes
+data/**
+model/**
+# java
+target/
+# python
+__pycache__/
+# benchmark
+benchmark/results/
