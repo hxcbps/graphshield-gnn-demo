@@ -1,0 +1,16 @@
+name: gnn
+channels:
+  - conda-forge
+  - pytorch
+  - pyg
+  - defaults
+dependencies:
+  - python=3.10
+  - pytorch
+  - pyg                    # PyTorch Geometric + deps
+  - pandas
+  - scikit-learn
+  - onnx>=1.16
+  - onnxruntime
+  - dvc[gdrive]
+  - pip
