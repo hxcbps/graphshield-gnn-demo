@@ -1,6 +1,0 @@
-outs:
-- md5: 6f617c2923a0c66cbe34c290f43df706.dir
-  size: 697459499
-  nfiles: 3
-  hash: md5
-  path: elliptic_dataset
