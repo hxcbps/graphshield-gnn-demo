@@ -1,0 +1,4 @@
+[core]
+    remote = elliptic-remote
+['remote "elliptic-remote"']
+    url = ../gdrive:1Xawjp2fODiJH2ni5tpHXGSrgxD1T5u0P
