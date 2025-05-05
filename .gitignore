@@ -1,5 +1,6 @@
 # artefactos grandes
 data/**
+!data/*.dvc
 model/**
 # java
 target/
