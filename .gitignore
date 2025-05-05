@@ -1,7 +1,7 @@
 # artefactos grandes
 data/**
 !data/*.dvc
-model/**
+!model/**
 # java
 target/
 # python
