@@ -1,0 +1,32 @@
+FROM registry.access.redhat.com/ubi8/ubi-minimal:8.6
+
+WORKDIR /work/
+RUN chown 1001 /work \
+    && chmod "g+rwX" /work \
+    && chown 1001:root /work
+
+# Instalar dependencias básicas
+RUN microdnf install -y libgomp freetype fontconfig
+
+# Crear directorio para el modelo y darle permisos adecuados
+RUN mkdir -p /model \
+    && chown 1001:root /model \
+    && chmod "g+rwX" /model
+
+# Copiar el ejecutable nativo
+COPY --chown=1001:root target/*-runner /work/application
+
+# Definir usuario no-root para seguridad
+USER 1001
+
+# Configurar variables de entorno
+ENV MODEL_PATH=/model/fraud_gnn.onnx
+ENV QUARKUS_HTTP_PORT=9444
+ENV QUARKUS_HTTP_HOST=0.0.0.0
+ENV JAVA_OPTS="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
+
+# Exponer puerto
+EXPOSE 9444
+
+# Comando principal
+CMD ["./application", "-Dquarkus.http.host=0.0.0.0", "-Dquarkus.http.port=9444"]

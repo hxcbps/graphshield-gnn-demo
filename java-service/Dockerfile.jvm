@@ -1,0 +1,33 @@
+# Fase de compilación
+FROM maven:3.9-eclipse-temurin-17 AS build
+
+WORKDIR /build
+
+# Copiar todo el proyecto para la compilación
+COPY . .
+
+# Compilar el proyecto con Maven
+RUN mvn package -DskipTests
+
+# Fase de ejecución
+FROM eclipse-temurin:17-jre
+
+WORKDIR /app
+
+# Copiar el jar resultante
+COPY --from=build /build/target/quarkus-app/lib/ /app/lib/
+COPY --from=build /build/target/quarkus-app/*.jar /app/
+COPY --from=build /build/target/quarkus-app/app/ /app/app/
+COPY --from=build /build/target/quarkus-app/quarkus/ /app/quarkus/
+
+# Crear directorio para el modelo
+RUN mkdir -p /model
+
+# Variables de entorno
+ENV MODEL_PATH=/model/fraud_gnn.onnx
+
+# Puerto
+EXPOSE 9444
+
+# Comando principal
+CMD ["java", "-jar", "quarkus-run.jar"]
