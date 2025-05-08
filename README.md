@@ -46,7 +46,6 @@ El sistema se divide en varias etapas y componentes clave que interactúan entre
 
 ```mermaid
 graph TD
-
   subgraph Fase_de_Entrenamiento_Local_CI
     A1[Dataset Elliptic CSVs] --> B1[data_loader.py]
     B1 --> C1[preprocessing.py - Scaler]
@@ -60,21 +59,29 @@ graph TD
   end
 
   subgraph Fase_de_Inferencia_y_Despliegue_Docker
-    J1 --> K1[Python Service (FastAPI + ONNX Runtime)]
-    J1 --> K2[Java Service (Quarkus + DJL + ONNX Runtime)]
+    K1[Python Service (FastAPI + ONNX Runtime)]
+    K2[Java Service (Quarkus + DJL + ONNX Runtime)]
+    L[Cliente API / wrk]
+    M1[Prometheus]
+    N1[Grafana]
+    O1[Jaeger]
+    P[Docker Compose]
+    
+    J1 --> K1
+    J1 --> K2
     H1 -.-> K1
     H1 -.-> K2
-
-    L[Cliente API / wrk] --> K1
+    
+    L --> K1
     L --> K2
-
-    K1 --> M1[Prometheus]
+    
+    K1 --> M1
     K2 --> M1
-    M1 --> N1[Grafana]
-    K1 --> O1[Jaeger]
+    M1 --> N1
+    K1 --> O1
     K2 --> O1
-
-    P[Docker Compose] -.-> K1
+    
+    P -.-> K1
     P -.-> K2
     P -.-> M1
     P -.-> N1
