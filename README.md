@@ -46,42 +46,44 @@ El sistema se divide en varias etapas y componentes clave que interactúan entre
 
 ```mermaid
 graph TD
-    subgraph "Fase de Entrenamiento (Local/CI)"
-        A1[Dataset Elliptic CSVs] --> B1(data_loader.py);
-        B1 --> C1(preprocessing.py - Scaler);
-        C1 --> D1(graph_constructor.py);
-        D1 --> E1(model_def.py - GraphSAGE);
-        E1 --> F1(train.py);
-        F1 --> G1[fraud_gnn.pt - Modelo PyTorch];
-        C1 --> H1[scaler.pkl];
-        G1 --> I1(export_onnx.py);
-        I1 --> J1[fraud_gnn.onnx - Modelo ONNX];
-    end
 
-    subgraph "Fase de Inferencia y Despliegue (Docker)"
-        J1 --> K1[Python Service (FastAPI + ONNX Runtime)];
-        J1 --> K2[Java Service (Quarkus + DJL + ONNX Runtime)];
-        H1 -.-> K1;
-        H1 -.-> K2;
+  subgraph Fase_de_Entrenamiento_Local_CI
+    A1[Dataset Elliptic CSVs] --> B1[data_loader.py]
+    B1 --> C1[preprocessing.py - Scaler]
+    C1 --> D1[graph_constructor.py]
+    D1 --> E1[model_def.py - GraphSAGE]
+    E1 --> F1[train.py]
+    F1 --> G1[fraud_gnn.pt - Modelo PyTorch]
+    C1 --> H1[scaler.pkl]
+    G1 --> I1[export_onnx.py]
+    I1 --> J1[fraud_gnn.onnx - Modelo ONNX]
+  end
 
-        L[Cliente API / wrk] --> K1;
-        L --> K2;
+  subgraph Fase_de_Inferencia_y_Despliegue_Docker
+    J1 --> K1[Python Service (FastAPI + ONNX Runtime)]
+    J1 --> K2[Java Service (Quarkus + DJL + ONNX Runtime)]
+    H1 -.-> K1
+    H1 -.-> K2
 
-        K1 --> M1[Prometheus];
-        K2 --> M1;
-        M1 --> N1[Grafana];
-        K1 --> O1[Jaeger];
-        K2 --> O1;
+    L[Cliente API / wrk] --> K1
+    L --> K2
 
-        P[Docker Compose] -.-> K1;
-        P -.-> K2;
-        P -.-> M1;
-        P -.-> N1;
-        P -.-> O1;
-    end
+    K1 --> M1[Prometheus]
+    K2 --> M1
+    M1 --> N1[Grafana]
+    K1 --> O1[Jaeger]
+    K2 --> O1
 
-    style J1 fill:#f9f,stroke:#333,stroke-width:2px
-    style H1 fill:#f9f,stroke:#333,stroke-width:2px
+    P[Docker Compose] -.-> K1
+    P -.-> K2
+    P -.-> M1
+    P -.-> N1
+    P -.-> O1
+  end
+
+  style J1 fill:#f9f,stroke:#333,stroke-width:2px
+  style H1 fill:#f9f,stroke:#333,stroke-width:2px
+
 ```
 
 
