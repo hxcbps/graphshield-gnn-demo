@@ -46,50 +46,50 @@ El sistema se divide en varias etapas y componentes clave que interactúan entre
 
 ```mermaid
 graph TD
-  subgraph Fase_de_Entrenamiento_Local_CI
-    A1[Dataset Elliptic CSVs] --> B1[data_loader.py]
-    B1 --> C1[preprocessing.py - Scaler]
-    C1 --> D1[graph_constructor.py]
-    D1 --> E1[model_def.py - GraphSAGE]
-    E1 --> F1[train.py]
-    F1 --> G1[fraud_gnn.pt - Modelo PyTorch]
-    C1 --> H1[scaler.pkl]
-    G1 --> I1[export_onnx.py]
-    I1 --> J1[fraud_gnn.onnx - Modelo ONNX]
-  end
+    subgraph "Fase de Entrenamiento Local CI"
+        A1["Dataset Elliptic CSVs"] --> B1["data_loader.py"]
+        B1 --> C1["preprocessing.py - Scaler"]
+        C1 --> D1["graph_constructor.py"]
+        D1 --> E1["model_def.py - GraphSAGE"]
+        E1 --> F1["train.py"]
+        F1 --> G1["fraud_gnn.pt - Modelo PyTorch"]
+        C1 --> H1["scaler.pkl"]
+        G1 --> I1["export_onnx.py"]
+        I1 --> J1["fraud_gnn.onnx - Modelo ONNX"]
+    end
 
-  subgraph Fase_de_Inferencia_y_Despliegue_Docker
-    K1[Python Service (FastAPI + ONNX Runtime)]
-    K2[Java Service (Quarkus + DJL + ONNX Runtime)]
-    L[Cliente API / wrk]
-    M1[Prometheus]
-    N1[Grafana]
-    O1[Jaeger]
-    P[Docker Compose]
-    
-    J1 --> K1
-    J1 --> K2
-    H1 -.-> K1
-    H1 -.-> K2
-    
-    L --> K1
-    L --> K2
-    
-    K1 --> M1
-    K2 --> M1
-    M1 --> N1
-    K1 --> O1
-    K2 --> O1
-    
-    P -.-> K1
-    P -.-> K2
-    P -.-> M1
-    P -.-> N1
-    P -.-> O1
-  end
+    subgraph "Fase de Inferencia y Despliegue Docker"
+        K1["Python Service FastAPI ONNX Runtime"]
+        K2["Java Service Quarkus DJL ONNX Runtime"]
+        L["Cliente API wrk"]
+        M1["Prometheus"]
+        N1["Grafana"]
+        O1["Jaeger"]
+        P["Docker Compose"]
+        
+        J1 --> K1
+        J1 --> K2
+        H1 -.-> K1
+        H1 -.-> K2
+        
+        L --> K1
+        L --> K2
+        
+        K1 --> M1
+        K2 --> M1
+        M1 --> N1
+        K1 --> O1
+        K2 --> O1
+        
+        P -.-> K1
+        P -.-> K2
+        P -.-> M1
+        P -.-> N1
+        P -.-> O1
+    end
 
-  style J1 fill:#f9f,stroke:#333,stroke-width:2px
-  style H1 fill:#f9f,stroke:#333,stroke-width:2px
+    style J1 fill:#007acc,stroke:#333,stroke-width:2px,color:#fff
+    style H1 fill:#007acc,stroke:#333,stroke-width:2px,color:#fff
 
 ```
 
