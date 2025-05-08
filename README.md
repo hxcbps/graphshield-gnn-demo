@@ -1,4 +1,3 @@
-# GraphShield-GNN Demo
 # GraphShield-GNN: Detección de Fraude con Redes Neuronales de Grafos
 
 GraphShield-GNN es un proyecto integral que demuestra la implementación de un sistema de detección de fraude en tiempo real utilizando Redes Neuronales de Grafos (GNN). El proyecto abarca desde el entrenamiento del modelo hasta el despliegue de servicios de inferencia comparativos (Python y Java), con un enfoque en la robustez, observabilidad y reproducibilidad.
@@ -45,7 +44,7 @@ El sistema se divide en varias etapas y componentes clave que interactúan entre
 
 ### Diagrama General de Arquitectura
 
-```mermaid
+```
 graph TD
     subgraph "Fase de Entrenamiento (Local/CI)"
         A1[Dataset Elliptic CSVs] --> B1(data_loader.py);
@@ -165,7 +164,7 @@ El proyecto incluye un sistema de benchmarking para comparar el rendimiento de a
 
 ### Diagrama del Pipeline de Entrenamiento
 
-```mermaid
+```
 flowchart TD
     A[elliptic_txs_features.csv] --> D[data_loader.py]
     B[elliptic_txs_edgelist.csv] --> D
