@@ -83,7 +83,7 @@ graph TD
     style J1 fill:#f9f,stroke:#333,stroke-width:2px
     style H1 fill:#f9f,stroke:#333,stroke-width:2px
 ```
-```
+
 
 ## Componentes del Proyecto
 
