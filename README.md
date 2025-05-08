@@ -44,7 +44,7 @@ El sistema se divide en varias etapas y componentes clave que interactúan entre
 
 ### Diagrama General de Arquitectura
 
-```
+```mermaid
 graph TD
     subgraph "Fase de Entrenamiento (Local/CI)"
         A1[Dataset Elliptic CSVs] --> B1(data_loader.py);
@@ -82,6 +82,7 @@ graph TD
 
     style J1 fill:#f9f,stroke:#333,stroke-width:2px
     style H1 fill:#f9f,stroke:#333,stroke-width:2px
+```
 ```
 
 ## Componentes del Proyecto
@@ -164,7 +165,7 @@ El proyecto incluye un sistema de benchmarking para comparar el rendimiento de a
 
 ### Diagrama del Pipeline de Entrenamiento
 
-```
+```mermaid
 flowchart TD
     A[elliptic_txs_features.csv] --> D[data_loader.py]
     B[elliptic_txs_edgelist.csv] --> D
@@ -179,6 +180,7 @@ flowchart TD
     K --> L[fraud_gnn.pt]
     L --> M[export_onnx.py]
     M --> N[fraud_gnn.onnx]
+```
 ```
 
 ### Pasos Detallados
